@@ -24,7 +24,9 @@
 #endregion License Information (GPL v3)
 
 using ShareX.HelpersLib;
+using ShareX.ImageEffectsLib;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -59,6 +61,55 @@ namespace ShareX
                 {
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(enums[i]);
                     tsmi.Image = TaskHelpers.FindMenuIcon<T>(i + 1);
+
+                    if (typeof(T) == typeof(AfterCaptureTasks) && i == AfterCaptureTasks.AddImageEffects.GetIndex() - 1 &&
+                        Program.Settings.QuickTaskImageEffectPresets)
+                    {
+                        List<ImageEffectPreset> presets = Program.DefaultTaskSettings.ImageSettings.ImageEffectPresets;
+
+                        for (int presetIndex = 0; presetIndex < presets.Count; presetIndex++)
+                        {
+                            ToolStripMenuItem tsmiPreset = new ToolStripMenuItem
+                            {
+                                Text = presets[presetIndex].Name,
+                                Tag = presetIndex,
+                                Checked = TaskInfo.ImageEffectPreset == presetIndex
+                            };
+
+                            tsmiPreset.Click += (sender, e) =>
+                            {
+                                tsmiPreset.Checked = !tsmiPreset.Checked;
+
+                                if (tsmiPreset.Checked)
+                                {
+                                    TaskInfo.ImageEffectPreset = (int)tsmiPreset.Tag;
+
+                                    foreach (ToolStripMenuItem tp in tsmi.DropDownItems)
+                                    {
+                                        if (tp != tsmiPreset)
+                                        {
+                                            tp.Checked = false;
+                                        }
+                                    }
+
+                                    if (!tsmi.Checked)
+                                    {
+                                        tsmi.PerformClick();
+                                    }
+                                }
+                                else
+                                {
+                                    TaskInfo.ImageEffectPreset = null;
+                                }
+
+                                UpdateUploaderMenuNames();
+                            };
+
+                            tsmi.DropDownItems.Add(tsmiPreset);
+                        }
+
+                        tsmi.DisableMenuCloseOnClick();
+                    }
 
                     int index = i;
 
