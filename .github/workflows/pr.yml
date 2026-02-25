@@ -19,9 +19,9 @@ jobs:
         configuration:
           - Release
           - Debug
-          - Steam
-          - MicrosoftStore
-          - MicrosoftStoreDebug
+          # - Steam
+          # - MicrosoftStore
+          # - MicrosoftStoreDebug
 
     env:
       SOLUTION_FILE_PATH: ShareX.sln
@@ -42,3 +42,9 @@ jobs:
 
       - name: Build
         run: dotnet build --no-restore --configuration "${{ matrix.configuration }}" /m:1 "${{ env.SOLUTION_FILE_PATH }}"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShareX-${{ matrix.configuration }}
+          path: ShareX/bin/${{ matrix.configuration }}/
