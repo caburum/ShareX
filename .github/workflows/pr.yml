@@ -23,7 +23,7 @@ jobs:
           - MicrosoftStore
           - MicrosoftStoreDebug
         platform:
-          - Any CPU
+          - x64
 
     env:
       SOLUTION_FILE_PATH: ShareX.sln
@@ -43,4 +43,4 @@ jobs:
         run: dotnet restore --runtime win-x64 "${{ env.SOLUTION_FILE_PATH }}"
 
       - name: Build
-        run: dotnet build --no-restore --configuration "${{ matrix.configuration }}" --self-contained true /m:1 "${{ env.SOLUTION_FILE_PATH }}"
+        run: dotnet build --no-restore --configuration "${{ matrix.configuration }}" -p:Platform="${{ matrix.platform }}" --self-contained true /m:1 "${{ env.SOLUTION_FILE_PATH }}"
