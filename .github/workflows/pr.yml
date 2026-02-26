@@ -19,11 +19,9 @@ jobs:
         configuration:
           - Release
           - Debug
-          - Steam
-          - MicrosoftStore
-          - MicrosoftStoreDebug
-        platform:
-          - Any CPU
+          # - Steam
+          # - MicrosoftStore
+          # - MicrosoftStoreDebug
 
     env:
       SOLUTION_FILE_PATH: ShareX.sln
@@ -40,7 +38,13 @@ jobs:
           dotnet-version: 9.0.x
 
       - name: Restore NuGet packages
-        run: dotnet restore --runtime win-x64 "${{ env.SOLUTION_FILE_PATH }}"
+        run: dotnet restore "${{ env.SOLUTION_FILE_PATH }}"
 
       - name: Build
-        run: dotnet build --no-restore --configuration "${{ matrix.configuration }}" --self-contained true /m:1 "${{ env.SOLUTION_FILE_PATH }}"
+        run: dotnet build --no-restore --configuration "${{ matrix.configuration }}" -p:Platform="x64" /m:1 "${{ env.SOLUTION_FILE_PATH }}"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShareX-${{ matrix.configuration }}
+          path: ShareX/bin/${{ matrix.configuration }}/

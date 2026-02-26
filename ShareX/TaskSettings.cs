@@ -350,6 +350,8 @@ namespace ShareX
 
         public List<ImageEffectPreset> ImageEffectPresets = new List<ImageEffectPreset>() { ImageEffectPreset.GetDefaultPreset() };
         public int SelectedImageEffectPreset = 0;
+        [JsonIgnore]
+        public int? SelectedImageEffectPresetOverride;
 
         public bool ShowImageEffectsWindowAfterCapture = false;
         public bool ImageEffectOnlyRegionCapture = false;
