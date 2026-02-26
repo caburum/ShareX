@@ -386,7 +386,7 @@ namespace ShareX
                             taskSettings.AfterCaptureJob = taskInfo.AfterCaptureTasks;
                             taskSettings.AfterUploadJob = taskInfo.AfterUploadTasks;
 
-                            if (Program.Settings.QuickTaskImageEffectPresets && taskInfo.ImageEffectPreset.HasValue)
+                            if (taskInfo.ImageEffectPreset.HasValue)
                             {
                                 taskSettings.ImageSettingsReference.SelectedImageEffectPresetOverride = taskInfo.ImageEffectPreset.Value;
                             }

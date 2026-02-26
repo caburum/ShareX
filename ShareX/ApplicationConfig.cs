@@ -196,9 +196,6 @@ namespace ShareX
         [Category("Application"), DefaultValue(false), Description("In main window when task is completed automatically select it.")]
         public bool AutoSelectLastCompletedTask { get; set; }
 
-        [Category("Application"), DefaultValue(false), Description("Allow quick tasks to use a specific image effect preset.")]
-        public bool QuickTaskImageEffectPresets { get; set; }
-
         [Category("Application"), DefaultValue(false), Description("")]
         public bool DevMode { get; set; }
 

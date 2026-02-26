@@ -62,8 +62,7 @@ namespace ShareX
                     ToolStripMenuItem tsmi = new ToolStripMenuItem(enums[i]);
                     tsmi.Image = TaskHelpers.FindMenuIcon<T>(i + 1);
 
-                    if (typeof(T) == typeof(AfterCaptureTasks) && i == AfterCaptureTasks.AddImageEffects.GetIndex() - 1 &&
-                        Program.Settings.QuickTaskImageEffectPresets)
+                    if (typeof(T) == typeof(AfterCaptureTasks) && i == AfterCaptureTasks.AddImageEffects.GetIndex() - 1)
                     {
                         List<ImageEffectPreset> presets = Program.DefaultTaskSettings.ImageSettings.ImageEffectPresets;
 

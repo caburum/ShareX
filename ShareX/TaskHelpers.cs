@@ -667,7 +667,7 @@ namespace ShareX
 
                 ImageEffectPreset imageEffect = null;
 
-                if (Program.Settings.QuickTaskImageEffectPresets && taskSettingsImage.SelectedImageEffectPresetOverride.HasValue)
+                if (taskSettingsImage.SelectedImageEffectPresetOverride.HasValue)
                 {
                     var presets = Program.DefaultTaskSettings.ImageSettings.ImageEffectPresets;
 
